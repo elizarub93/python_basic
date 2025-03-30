@@ -194,9 +194,9 @@ for stick in list_sticks:
 
 nice_list = [[[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[10, 11, 12], [13, 14, 15], [16, 17, 18]]]
 
-new_list = [nice_list[i_l][i_l2][i_l3] for i_l in range(len(nice_list))
-            for i_l2 in range(len(nice_list[i_l]))
-            for i_l3 in range(len(nice_list[i_l][i_l2]))]
+new_list = [num for each_list in nice_list
+            for each_list_2 in each_list
+            for num in each_list_2]
 print(new_list)
 
 # Задача 10. Шифр Цезаря
@@ -212,16 +212,12 @@ alphabet = [chr(i) for i in range(ord('а'), ord('я') + 1)]
 
 text = input('Введите сообщение: ')
 shift = int(input('Введите сдвиг: '))
-new_text = []
 
-for letter in text:
-    if letter in alphabet:
-        i_letter = (alphabet.index(letter) + shift) % len(alphabet)
-        new_text += alphabet[i_letter]
-    else:
-        new_text += letter
+new_text = [(alphabet[(alphabet.index(letter) + shift) % len(alphabet)]
+             if letter in alphabet
+             else letter)
+            for letter in text ]
 
 print('Зашифрованное сообщение: ', end='')
-
 for letter in new_text:
     print(letter, end='')
