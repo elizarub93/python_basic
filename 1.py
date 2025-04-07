@@ -1,39 +1,24 @@
-from xml.etree.ElementPath import prepare_parent
+# 1 запись: 69485 Jack
+# 2 запись: 95715 qwerty
+# 3 запись: 95715 Alex
+# 4 запись: 83647 M
+# 5 запись: 197128 qwerty
+# 6 запись: 95715 Jack
+# 7 запись: 93289 Alex
+# 8 запись: 95715 Alex
+# 9 запись: 95715 M
+
+def get_gen(obj1, obj2):
+    return ((obj1[i_n], obj2[i_n]) for i_n in range(min(len(obj1), len(obj2))))
 
 
-def annuity(percent, period):
-    t = (1 + percent) ** period
-    return  percent * t / (t - 1)
+my_str = ['a', 'b', 'c', 'd']
+my_tuple = (10, 20, 30, 40)
+my_generator = get_gen(my_str, my_tuple)
 
-def print_info(num_period, summa, percent):
-    print(f'\nПериод: {num_period}')
-    print(f'Остаток долга на начало периода: {summa:.2f}')
-    print(f'Выплачено процентов: {summa_credit * percent:.2f}')
-    payment = annuity_summa - summa_credit * percent
-    print(f'Выплачено тела кредита: {payment:.2f}')
-    return summa - payment
+print(my_generator)
+
+for i_item in my_generator:
+    print(i_item)
 
 
-summa_credit = float(input('Введите сумму кредита: '))
-period = int(input('На сколько лет выдан? '))
-percent = float(input('Сколько процентов годовых?')) / 100
-
-annuity_summa = annuity(percent, period) * summa_credit
-
-for p in range(1, 4):
-    summa_credit = print_info(p, summa_credit, percent)
-
-print(f'\nОстаток долга: {summa_credit:.2f}')
-print('=' * 20)
-
-n2 = int(input('На сколько лет продлевается договор? '))
-i2 = float(input('Увеличение ставки до: ')) / 100
-
-period = n2 + period - 3
-
-annuity_summa = annuity(i2, period) * summa_credit
-
-for p in range(1, period+1):
-    summa_credit = print_info(p, summa_credit, i2)
-
-print(f'\nОстаток долга: {summa_credit:.2f}')
