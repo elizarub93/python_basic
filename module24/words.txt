@@ -1,0 +1,4 @@
+abba
+abcd
+4
+abcddcba
