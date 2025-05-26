@@ -316,3 +316,43 @@ with open('calc.txt') as calc:
 
 print('Сумма результатов:', sum_res)
 
+
+# Задача 6. Чат
+# Что нужно сделать
+# Реализуйте программу — чат, в котором могут участвовать сразу несколько человек, то есть программа может работать
+# одновременно для нескольких пользователей. При запуске запрашивается имя пользователя. После этого он
+# выбирает одно из действий:
+#
+# Посмотреть текущий текст чата.
+# Отправить сообщение (затем вводит сообщение).
+# Действия запрашиваются бесконечно.
+#
+# Примечание: для решения задачи вам будет достаточно текущих знаний, нужно лишь проявить немного фантазии и хитрости.
+# Не нужно лезть в дебри работы с сетями, создания GUI-приложений и прочих штук. (Но если очень хочется,
+# то останавливать вас никто не будет!)
+
+def show_chat(file_name):
+    try:
+        with open(file_name, 'r') as chat:
+            message = chat.readline()
+            print(' '.join(message))
+    except FileNotFoundError:
+        print('Чат не найден')
+
+def add_message(file_name, user_name, message):
+    with open(file_name, 'a') as chat:
+        chat.write('{name}: {message}\n'.format(name=user_name, message=message))
+
+file_name = 'chat.txt'
+user_name = input('Введите имя: ')
+
+while True:
+    action = int(input('Выберите действие: 1 - просмотр истории чата, 2 - отправить сообщение: '))
+    if action == 1:
+        show_chat(file_name)
+    elif action == 2:
+        message = input('Введите сообщение: ')
+        add_message(file_name, user_name, message)
+    else:
+        print('Выбрано некорректное действие')
+
